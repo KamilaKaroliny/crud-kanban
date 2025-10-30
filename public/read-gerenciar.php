@@ -13,6 +13,7 @@ $tarefas = $mysqli->query("
 <head>
     <meta charset="UTF-8">
     <title>Gerenciar Tarefas</title>
+    <link href="../style/style.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -30,7 +31,7 @@ $tarefas = $mysqli->query("
 <div class="container mt-4">
     <h2>Tarefas Cadastradas</h2>
     <table class="table table-striped table-bordered align-middle">
-        <thead class="table-primary text-center">
+        <thead class="text-center">
             <tr>
                 <th>ID</th>
                 <th>Descrição</th>
