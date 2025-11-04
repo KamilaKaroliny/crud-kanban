@@ -22,13 +22,13 @@ $tarefas = $mysqli->query("
         <h3 class="text-white">Gerenciamento de Tarefas</h3>
         <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link text-white" href="create-usuarios.php">Usuários</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="read-usuarios">Tarefas</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="read-usuarios.php">Tarefas</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="read-gerenciar.php">Gerenciar</a></li>
         </ul>
     </div>
 </nav>
 
-<div class="container mt-4">
+<div>
     <h2>Tarefas Cadastradas</h2>
     <table class="table table-striped table-bordered align-middle">
         <thead class="text-center">

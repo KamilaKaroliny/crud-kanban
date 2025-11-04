@@ -1,8 +1,8 @@
 <?php 
-   session_start();
+session_start();
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,36 +11,32 @@
     <title>Login</title>
 </head>
 <body>
-      <div class="container">
+    <div class="container">
         <div class="box form-box">
             <?php 
-             
-              include("php/config.php");
-              if(isset($_POST['submit'])){
-                $email = mysqli_real_escape_string($con,$_POST['email']);
-                $password = mysqli_real_escape_string($con,$_POST['password']);
+            include("./includes/conexao.php");
 
-                $result = mysqli_query($con,"SELECT * FROM users WHERE Email='$email' AND Password='$password' ") or die("Select Error");
-                $row = mysqli_fetch_assoc($result);
+            if (isset($_POST['submit'])) {
+                $email = $mysqli->real_escape_string($_POST['email']);
+                $senha = $mysqli->real_escape_string($_POST['senha']);
 
-                if(is_array($row) && !empty($row)){
+                $query = "SELECT * FROM usuarios WHERE Email='$email' AND senha='$senha'";
+                $result = $mysqli->query($query);
+
+                if ($result && $result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
                     $_SESSION['valid'] = $row['Email'];
                     $_SESSION['username'] = $row['Username'];
-                    $_SESSION['age'] = $row['Age'];
                     $_SESSION['id'] = $row['Id'];
-                }else{
+                    header("Location: ./public/read-usuarios.php");
+                    exit;
+                } else {
                     echo "<div class='message'>
-                      <p>Nome de usuário ou senha incorretos</p>
-                       </div> <br>";
-                   echo "<a href='index.php'><button class='btn'>Voltar</button>";
-         
+                            <p>Nome de usuário ou senha incorretos</p>
+                          </div> <br>";
+                    echo "<a href='index.php'><button class='btn' style='background-color:rgb(179, 0, 98);'>Voltar</button></a>";
                 }
-                if(isset($_SESSION['valid'])){
-                    header("Location: home.php");
-                }
-              }else{
-
-            
+            } else {
             ?>
             <header>Login</header>
             <form action="" method="post">
@@ -50,20 +46,19 @@
                 </div>
 
                 <div class="field input">
-                    <label for="password">Senha</label>
-                    <input type="password" name="password" id="password" autocomplete="off" required>
+                    <label for="senha">Senha</label>
+                    <input type="password" name="senha" id="senha" autocomplete="off" required>
                 </div>
 
                 <div class="field">
-                    
-                    <input type="submit" class="btn" name="submit" value="Login" required>
+                    <input type="submit" class="btn" style="background-color:rgb(179, 0, 98);" name="submit" value="Login">
                 </div>
                 <div class="links">
-                    Não tem uma conta? <a href="register.php">Cadastre-se aqui</a>
+                    Não tem uma conta? <a href="./public/cadastro.php">Cadastre-se aqui</a>
                 </div>
             </form>
         </div>
         <?php } ?>
-      </div>
+    </div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-include './includes/conexao.php';
+include '../includes/conexao.php';
 
 $usuarios = $mysqli->query("SELECT id, nome FROM usuarios");
 
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ");
         $stmt->bind_param("sssssi", $descricao, $setor, $prioridade, $data_cadastro, $status_tarefa, $usuario_responsavel);
         $stmt->execute();
-        header('Location: ./public/read-gerenciar.php');
+        header('Location: read-gerenciar.php');
         exit;
     } else {
         $erro = "Preencha todos os campos!";
@@ -37,9 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container-fluid">
         <h3 class="text-white">Gerenciamento de Tarefas</h3>
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link text-white" href="./public/create-usuarios.php">Usuários</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="read-usuarios">Tarefas</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="./public/read-gerenciar.php">Gerenciar</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="create-usuarios.php">Usuários</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="read-usuarios.php">Tarefas</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="read-gerenciar.php">Gerenciar</a></li>
         </ul>
     </div>
 </nav>
