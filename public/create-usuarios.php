@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h3 class="text-white">Gerenciamento de Tarefas</h3>
         <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link text-white" href="create-usuarios.php">Usuários</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="../index.php">Tarefas</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="read-usuarios.php">Tarefas</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="read-gerenciar.php">Gerenciar</a></li>
         </ul>
     </div>
