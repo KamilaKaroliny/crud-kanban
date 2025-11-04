@@ -1,5 +1,34 @@
 <?php 
 session_start();
+include("./includes/conexao.php");
+
+if (isset($_POST['submit'])) {
+    $email = $mysqli->real_escape_string($_POST['email']);
+    $senha = $mysqli->real_escape_string($_POST['senha']);
+
+    // Busca usuário pelo e-mail
+    $query = "SELECT * FROM usuarios WHERE email='$email' AND senha='$senha'";
+    $result = $mysqli->query($query);
+
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+
+        // Cria sessão do usuário
+        $_SESSION['usuario_id'] = $row['id'];
+        $_SESSION['usuario_nome'] = $row['nome'];
+        $_SESSION['usuario_email'] = $row['email'];
+
+        // Redireciona para as tarefas do usuário
+        header("Location: ./public/read-gerenciar.php");
+        exit;
+    } else {
+        echo "<div class='message'>
+                <p>Email ou senha incorretos!</p>
+              </div> <br>";
+        echo "<a href='index.php'><button class='btn' style='background-color:rgb(179, 0, 98);'>Voltar</button></a>";
+        exit;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -13,32 +42,8 @@ session_start();
 <body>
     <div class="container">
         <div class="box form-box">
-            <?php 
-            include("./includes/conexao.php");
-
-            if (isset($_POST['submit'])) {
-                $email = $mysqli->real_escape_string($_POST['email']);
-                $senha = $mysqli->real_escape_string($_POST['senha']);
-
-                $query = "SELECT * FROM usuarios WHERE Email='$email' AND senha='$senha'";
-                $result = $mysqli->query($query);
-
-                if ($result && $result->num_rows > 0) {
-                    $row = $result->fetch_assoc();
-                    $_SESSION['valid'] = $row['Email'];
-                    $_SESSION['username'] = $row['Username'];
-                    $_SESSION['id'] = $row['Id'];
-                    header("Location: ./public/read-usuarios.php");
-                    exit;
-                } else {
-                    echo "<div class='message'>
-                            <p>Nome de usuário ou senha incorretos</p>
-                          </div> <br>";
-                    echo "<a href='index.php'><button class='btn' style='background-color:rgb(179, 0, 98);'>Voltar</button></a>";
-                }
-            } else {
-            ?>
             <header>Login</header>
+
             <form action="" method="post">
                 <div class="field input">
                     <label for="email">Email</label>
@@ -53,12 +58,12 @@ session_start();
                 <div class="field">
                     <input type="submit" class="btn" style="background-color:rgb(179, 0, 98);" name="submit" value="Login">
                 </div>
+
                 <div class="links">
                     Não tem uma conta? <a href="./public/cadastro.php">Cadastre-se aqui</a>
                 </div>
             </form>
         </div>
-        <?php } ?>
     </div>
 </body>
 </html>
